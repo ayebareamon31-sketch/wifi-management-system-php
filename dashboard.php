@@ -1,52 +1,53 @@
-<link rel="stylesheet" href="assets/css/style.css">
+<?php
+session_start();
 
-<div class="wrapper">
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f7;
+        }
+        .topbar {
+            background: #004aad;
+            color: white;
+            padding: 15px;
+        }
+        .container {
+            padding: 30px;
+        }
+        a {
+            color: #004aad;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
 
-<div class="sidebar">
-    <h3>WiFi Admin</h3>
-    <a href="dashboard.php">Dashboard</a>
-    <a href="map.php">WiFi Map</a>
-    <a href="reports.php">Reports</a>
-    <a href="logout.php">Logout</a>
+<div class="topbar">
+    Welcome, <?= $_SESSION['admin_name'] ?>
+    | <a href="logout.php" style="color:white;">Logout</a>
 </div>
 
-<div class="main">
-    <h2>Dashboard</h2>
-
-    <div class="cards">
-        <div class="card">
-            <h3>Total Users</h3>
-            <p><?= count($users) ?></p>
-        </div>
-        <div class="card">
-            <h3>Active Zones</h3>
-            <p>3</p>
-        </div>
-        <div class="card">
-            <h3>Access Points</h3>
-            <p>3</p>
-        </div>
-    </div>
-
-    <h3>Users</h3>
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        <?php foreach ($users as $u): ?>
-        <tr>
-            <td><?= $u['username'] ?></td>
-            <td class="status-<?= $u['status'] ?>">
-                <?= $u['status'] ?>
-            </td>
-            <td>
-                <a href="toggle_user.php?id=<?= $u['id'] ?>">Toggle</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
+<div class="container">
+    <h2>WiFi Management Dashboard</h2>
+    <ul>
+        <li>Manage Users</li>
+        <li>Manage Zones (Library, Hostel, Admin Block)</li>
+        <li>WiFi Access Points</li>
+        <li>Bandwidth Monitoring</li>
+        <li>Google Maps View</li>
+    </ul>
 </div>
-</div>
+
+</body>
+</html>
+
 
